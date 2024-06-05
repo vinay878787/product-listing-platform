@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Health check endpoint
-app.get("/", (req, res) => {
+app.get("/health", (req, res) => {
   const dbStatus =
     mongoose.connection.readyState === 1 ? "Connected" : "Disconnected";
 

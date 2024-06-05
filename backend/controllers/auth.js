@@ -51,7 +51,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log(email, password);
     // Check if the required fields are provided
     if (!email || !password) {
       return res
@@ -64,17 +64,16 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
-
+    console.log("USER", user);
     // Compare the provided password with the stored hashed password
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
-
+    console.log("passwordMatch", passwordMatch);
     // Generate and return the JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: 600,
-    });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+    console.log("token",token);
     res
       .status(200)
       .json({ message: "Login successful", name: user.name, token });
