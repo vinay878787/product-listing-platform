@@ -44,7 +44,7 @@ db()
     });
   })
   .catch((e) => {
-    console.log("server not connected", e);
+    console.log("server not connect", e);
   });
 
 module.exports = app;
